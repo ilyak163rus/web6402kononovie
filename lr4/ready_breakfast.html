@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Готовые завтраки</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Стили для таблицы */
+        #loadedDataTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        #loadedDataTable th, #loadedDataTable td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        #loadedDataTable th {
+            background-color: #3498db;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        #loadedDataTable tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        #loadedDataTable tr:hover {
+            background-color: #e1f5fe;
+        }
+
+        /* Стили для ошибок */
+        #error-message {
+            color: red;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Готовые завтраки</h1>
+        <p>Информация о готовых завтраках загружается с сервера...</p>
+
+        <!-- Таблица для данных -->
+        <h2>Доступные завтраки</h2>
+        <table id="loadedDataTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Тип</th>
+                    <th>Рейтинг</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Данные будут добавлены сюда через JavaScript -->
+            </tbody>
+        </table>
+
+        <!-- Сообщение об ошибке -->
+        <div id="error-message"></div>
+    </div>
+
+    <script>
+        async function fetchData() {
+            const tableBody = document.querySelector('#loadedDataTable tbody');
+            const errorMessage = document.getElementById('error-message');
+
+            try {
+                // Запрос данных с единственного ресурса /breakfasts
+                const response = await fetch('http://localhost:3000/breakfasts');
+
+                if (!response.ok) {
+                    throw new Error(`Ошибка сервера: ${response.status}`);
+                }
+
+                const data = await response.json(); // JSON-данные из массива
+
+                // Очистка таблицы
+                tableBody.innerHTML = '';
+
+                // Добавление строк для всех элементов массива
+                data.forEach(item => {
+                    const row = `
+                        <tr>
+                            <td>${item.id}</td>
+                            <td>${item.name}</td>
+                            <td>${item.type}</td>
+                            <td>${item.rating}</td>
+                        </tr>
+                    `;
+                    tableBody.insertAdjacentHTML('beforeend', row);
+                });
+
+            } catch (error) {
+                // Вывод сообщения об ошибке
+                errorMessage.textContent = `Не удалось загрузить данные: ${error.message}`;
+            }
+        }
+
+        // Вызов функции загрузки данных при загрузке страницы
+        fetchData();
+    </script>
+</body>
+</html>

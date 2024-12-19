@@ -1,0 +1,222 @@
+/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    padding: 30px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    text-align: center;
+}
+
+/* Заголовки и текст */
+h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    color: #2c3e50;
+    text-align: center;
+}
+
+p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+/* Ссылки */
+ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 25px;
+}
+
+ul li {
+    margin: 10px 0;
+}
+
+ul li a {
+    color: #3498db;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+ul li a:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+/* Flex контейнер (для main.html) */
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Grid контейнер (для no_egg.html) */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Изображения */
+.images {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+.breakfast-image, .recipe-image {
+    width: 150px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Анимация для изображений (плавное появление и "пульс") */
+.breakfast-image {
+    opacity: 0;
+    animation: fadeIn 2s forwards, pulse 2s infinite alternate ease-in-out;
+}
+
+/* Поворот первых изображений */
+.breakfast-image:first-child {
+    transform: rotate(-15deg);
+}
+.breakfast-image:last-child {
+    transform: rotate(15deg);
+}
+
+.breakfast-image:hover, .recipe-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1) rotate(-15deg); }
+    100% { transform: scale(1.05) rotate(-15deg); }
+}
+
+/* Для рецептов */
+.recipe {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    gap: 20px;
+}
+
+.recipe-content {
+    flex: 1;
+    text-align: left;
+}
+
+.recipe-content h2 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.recipe-content p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.recipe-content .emoji {
+    font-size: 1.2em;
+}
+
+/* Таблица топ-завтраков */
+.top-breakfast-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.top-breakfast-table th, .top-breakfast-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.top-breakfast-table th {
+    background-color: #3498db;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.top-breakfast-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.top-breakfast-table tr:hover {
+    background-color: #e1f5fe;
+}
+
+.top-breakfast-table td:nth-child(2) {
+    text-align: left;
+}
+
+.top-breakfast-table td a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+/* Адаптивность */
+@media (max-width: 600px) {
+    .breakfast-image, .recipe-image {
+        width: 120px;
+    }
+    
+    h1 {
+        font-size: 24px;
+    }
+    
+    p, ul li a {
+        font-size: 14px;
+    }
+    
+    .recipe {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .recipe-content h2 {
+        font-size: 20px;
+    }
+}
